@@ -10,7 +10,7 @@ const app = express();
 const fs = require("fs");
 
 //encryption stuffs
-const crypto = require("crypto");
+const crypto = require("crypto").webcrypto;
   
 // Parsing the form of body to take
 // input from forms
