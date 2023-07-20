@@ -43,7 +43,6 @@ function send_vote() {
 function send_post(request_type, data, context) {
   var textbox = context;
   (function (variable) {
-    console.log(variable);
     fetch(url + "/" + request_type + "/", {
         method: "POST",
         headers: {
@@ -55,9 +54,12 @@ function send_post(request_type, data, context) {
         .then(data => {
           console.log("Response:", data);
           if (data["message"] == "NOK") {
-            console.log(variable);
             //window.location.href = url + '/error.html';
             ballot_reference[variable].value = "❌";
+          } else {
+            if (data["message"] == "OK") {
+              ballot_reference[variable].value = "✅";
+            }
           }
           if (request_type == "request_ballot") {
             ballot_data = data;
