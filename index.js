@@ -31,7 +31,6 @@ fs.readFile('./valid_tokens.json', 'utf8', (err, data) => {
       console.error(err);
       return;
     }
-    console.log(data);
     valid_tokens = JSON.parse(data);
   });
   
@@ -107,16 +106,12 @@ app.get("/home.js", function (req, res) {
 app.post("/mssg", function (req, res) {
   
   // Logging the form body
-  console.log(req.body);
   
   // Redirecting to the root
   res.redirect("/");
 });
 
 app.post("/request_ballot/", function (req, res) {
-  
-    // Logging the form body
-    console.log(req.body);
     
     // Redirecting to the root
     res.status(200).json({ "vote_index":start_vote_index, "candidates":candidates });
@@ -191,10 +186,7 @@ app.post("/request_status/", function (req, res) {
   });
 
 app.post("/request_results/", function (req, res) {
-  
-    // Logging the form body
-    console.log(req.body);
-    
+
     // Redirecting to the root
     res.status(200).json({ "votes":votes, "candidates":candidates });
   });
@@ -211,13 +203,10 @@ app.post("/request_results/", function (req, res) {
             for (let z in arrayRange(0, 11, 1)) {
                 var data = await compose_data(arrayRange(1, 12, 1)[y], valid_tokens[x], arrayRange(0, 11, 1)[z]);
                 if (data["encrypt"] == req.body["data"]) {
-                    console.log(list_of_used_tokens);
-                    console.log(data["token"]);
                     if (list_of_used_tokens.includes(data["token"] + data["index"])) {
                         found_valid_vote = false;
                         break Loop1;
                     }
-                    console.log("Got valid vote: " + " " + " Rank=" + data["vote"] + " Candidate=" + candidates[data["index"]-start_vote_index]);
                     votes[data["index"]-start_vote_index] += (parseInt(candidates.length) - parseInt(data["vote"]))
                     found_valid_vote = true;
                     list_of_used_tokens.push(data["token"] + data["index"]);
@@ -233,14 +222,6 @@ app.post("/request_results/", function (req, res) {
         res.status(200).json({ "message":"NOK", "data": req.body["data"]});
         
     }
-
-    console.log(votes);
-
-    console.log("Current status");
-    for (x in votes) {
-        console.log("    " + candidates[x] + " @ " + votes[x]);
-    }
-
   }
   
 // Creating object of key and certificate
