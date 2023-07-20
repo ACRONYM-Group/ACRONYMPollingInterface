@@ -21,6 +21,8 @@ async function compose_data(data, salt, index) {
 }
 
 function send_vote() {
+    var button = document.getElementById("SendButton");
+    button.parentNode.removeChild(button);
     //send_post("vote", {"vote_token": ballot_reference[0].value, "vote_index": ballot_data["vote_index"]+0, "vote_data":ballot_reference[2].value});
     for (x in ballot_data["candidates"]) {
         console.log(ballot_reference[x].value + " " + voting_token.value + " " + (parseInt(ballot_data["vote_index"])+parseInt(x)));
