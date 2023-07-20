@@ -24,12 +24,16 @@ function send_vote() {
     //send_post("vote", {"vote_token": ballot_reference[0].value, "vote_index": ballot_data["vote_index"]+0, "vote_data":ballot_reference[2].value});
     for (x in ballot_data["candidates"]) {
         console.log(ballot_reference[x].value + " " + voting_token.value + " " + (parseInt(ballot_data["vote_index"])+parseInt(x)));
-        compose_data(ballot_reference[x].value, voting_token.value, (parseInt(ballot_data["vote_index"])+parseInt(x))).then((data) =>
-            {
-            send_post("vote", {"data": data}, x);
-            console.log(data);
-            }
-        );
+        (function (variable) {
+
+        
+          compose_data(ballot_reference[x].value, voting_token.value, (parseInt(ballot_data["vote_index"])+parseInt(x))).then((data) =>
+              {
+              send_post("vote", {"data": data}, variable);
+              console.log(data);
+              }
+          );
+      })(x);
         
         // send_post("vote", {"vote_token": voting_token.value, "vote_index": ballot_data["vote_index"]+x, "vote_data":ballot_reference[x].value});
     }
@@ -37,9 +41,9 @@ function send_vote() {
 }
 
 function send_post(request_type, data, context) {
-  const textbox = context;
+  var textbox = context;
   (function (variable) {
-    console.log(textbox);
+    console.log(variable);
     fetch(url + "/" + request_type + "/", {
         method: "POST",
         headers: {
@@ -51,9 +55,9 @@ function send_post(request_type, data, context) {
         .then(data => {
           console.log("Response:", data);
           if (data["message"] == "NOK") {
-            console.log(textbox);
+            console.log(variable);
             //window.location.href = url + '/error.html';
-            ballot_reference[textbox].value = "❌";
+            ballot_reference[variable].value = "❌";
           }
           if (request_type == "request_ballot") {
             ballot_data = data;
