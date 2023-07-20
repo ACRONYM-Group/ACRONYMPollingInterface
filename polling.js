@@ -39,6 +39,7 @@ function send_vote() {
 function send_post(request_type, data, context) {
   const textbox = context;
   (function (variable) {
+    console.log(textbox);
     fetch(url + "/" + request_type + "/", {
         method: "POST",
         headers: {
@@ -50,6 +51,7 @@ function send_post(request_type, data, context) {
         .then(data => {
           console.log("Response:", data);
           if (data["message"] == "NOK") {
+            console.log(textbox);
             //window.location.href = url + '/error.html';
             ballot_reference[textbox].value = "❌";
           }
