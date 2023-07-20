@@ -1,0 +1,19 @@
+.vote_box {
+    float:right;
+}
+
+.ballot_line {
+    display:flex;
+}
+
+.status_line {
+    display:flex;
+    margin-bottom:35px;
+    background-color: lightblue;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.ballot_text_area {
+    margin-left: auto;
+}

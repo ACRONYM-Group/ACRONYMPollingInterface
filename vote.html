@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+<head>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content
+        ="width=device-width, initial-scale=1.0">
+    <title>HTTPS Server</title>
+</head>
+  
+<body>
+    <h1>Welcome to the <br>ACRONYM Polling Interface</h1>
+    <br><br>
+    <h3>Please enter your voting preferences. 
+        <br>All input should be a 1 or 2 digit number from 1-12.
+        <br>
+        <br>No leading zeros should be used.
+        <br>
+        <br>Any other input will be considered an
+        <br>  invalid vote and discarded.
+        <br>
+        <br>If any positions are left blank, these
+        <br>  candidates will be given zero votes.</h3>
+  
+    <!--  sending post request to "mssg" with 
+        the message from the textarea -->
+    <form action="mssg" method="post">
+        <div style="width: 250px;" id="form">
+        </div>
+    </form>
+    <button onclick="send_vote()">Send</button>
+
+    <br>
+    <br>
+    <a href="./results.html">View Results</a>
+    <br>
+    <a href=".">Home</a>
+</body>
+
+<script src="./polling.js"></script>
+  
+</html>
