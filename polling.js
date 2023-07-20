@@ -25,18 +25,17 @@ function send_vote() {
     button.parentNode.removeChild(button);
     //send_post("vote", {"vote_token": ballot_reference[0].value, "vote_index": ballot_data["vote_index"]+0, "vote_data":ballot_reference[2].value});
     for (x in ballot_data["candidates"]) {
+      if (ballot_reference[x].value.length > 0) {
         console.log(ballot_reference[x].value + " " + voting_token.value + " " + (parseInt(ballot_data["vote_index"])+parseInt(x)));
         (function (variable) {
-
-        
           compose_data(ballot_reference[x].value, voting_token.value, (parseInt(ballot_data["vote_index"])+parseInt(x))).then((data) =>
               {
               send_post("vote", {"data": data}, variable);
               console.log(data);
               }
           );
-      })(x);
-        
+        })(x);
+    }
         // send_post("vote", {"vote_token": voting_token.value, "vote_index": ballot_data["vote_index"]+x, "vote_data":ballot_reference[x].value});
     }
     update_ballot_data();
