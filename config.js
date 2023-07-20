@@ -1,4 +1,4 @@
-const url = "https://127.0.0.1:8080";
+const url = "https://polling.scienceandpizza.com";
 
 ballot_data = send_post("request_ballot", ["request_ballot"]);
 ballot_reference = []
