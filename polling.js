@@ -38,6 +38,7 @@ function send_vote() {
 
 function send_post(request_type, data, context) {
   const textbox = context;
+  (function (variable) {
     fetch(url + "/" + request_type + "/", {
         method: "POST",
         headers: {
@@ -62,6 +63,7 @@ function send_post(request_type, data, context) {
         .catch(error => {
           console.error("Error:", error);
         });
+      })(textbox);
 }
 
 function update_ballot_data() {
