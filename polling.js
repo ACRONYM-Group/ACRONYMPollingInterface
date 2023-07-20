@@ -26,7 +26,7 @@ function send_vote() {
         console.log(ballot_reference[x].value + " " + voting_token.value + " " + (parseInt(ballot_data["vote_index"])+parseInt(x)));
         compose_data(ballot_reference[x].value, voting_token.value, (parseInt(ballot_data["vote_index"])+parseInt(x))).then((data) =>
             {
-            send_post("vote", {"data": data});
+            send_post("vote", {"data": data}, x);
             console.log(data);
             }
         );
@@ -36,7 +36,8 @@ function send_vote() {
     update_ballot_data();
 }
 
-function send_post(request_type, data) {
+function send_post(request_type, data, context) {
+  const textbox = context;
     fetch(url + "/" + request_type + "/", {
         method: "POST",
         headers: {
@@ -48,7 +49,8 @@ function send_post(request_type, data) {
         .then(data => {
           console.log("Response:", data);
           if (data["message"] == "NOK") {
-            window.location.href = url + '/error.html';
+            //window.location.href = url + '/error.html';
+            ballot_reference[textbox].value = "❌";
           }
           if (request_type == "request_ballot") {
             ballot_data = data;
