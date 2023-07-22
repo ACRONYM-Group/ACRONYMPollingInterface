@@ -25,6 +25,7 @@ var start_vote_index = 0;
 var status_updates = [];
 
 var list_of_used_tokens = [];
+var list_of_used_ranks = [];
 
 fs.readFile('./valid_tokens.json', 'utf8', (err, data) => {
     if (err) {
@@ -124,6 +125,7 @@ app.post("/clear_votes/", function (req, res) {
         res.redirect("./config.html")
         votes = new Array(candidates.length).fill(0);
         list_of_used_tokens = [];
+        list_of_used_ranks = [];
     } else {
         res.status(200).json({"message":"NOK"});
     }
@@ -207,9 +209,15 @@ app.post("/request_results/", function (req, res) {
                         found_valid_vote = false;
                         break Loop1;
                     }
+
+                    if (list_of_used_ranks.includes(data["token"] + data["vote"])) {
+                        found_valid_vote = false;
+                        break Loop1;
+                    }
                     votes[data["index"]-start_vote_index] += (parseInt(candidates.length) - parseInt(data["vote"]))
                     found_valid_vote = true;
                     list_of_used_tokens.push(data["token"] + data["index"]);
+                    list_of_used_ranks.push(data["token"] + data["vote"]);
                     break Loop1;
                 }
             }
