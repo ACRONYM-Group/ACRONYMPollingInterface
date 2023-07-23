@@ -201,9 +201,9 @@ app.post("/request_results/", function (req, res) {
     var found_valid_vote = false;
     Loop1:
     for (let x in valid_tokens) {
-        for (let y in arrayRange(1, 12, 1)) {
-            for (let z in arrayRange(0, 11, 1)) {
-                var data = await compose_data(arrayRange(1, 12, 1)[y], valid_tokens[x], arrayRange(0, 11, 1)[z]);
+        for (let y in arrayRange(1, parseInt(candidates.length), 1)) {
+            for (let z in arrayRange(0, parseInt(candidates.length)-1, 1)) {
+                var data = await compose_data(arrayRange(1, parseInt(candidates.length), 1)[y], valid_tokens[x], arrayRange(0, parseInt(candidates.length)-1, 1)[z]);
                 if (data["encrypt"] == req.body["data"]) {
                     if (list_of_used_tokens.includes(data["token"] + data["index"])) {
                         found_valid_vote = false;
